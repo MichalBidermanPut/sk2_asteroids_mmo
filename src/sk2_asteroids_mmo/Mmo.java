@@ -3,11 +3,11 @@ package sk2_asteroids_mmo;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
-public class Asteroids extends JFrame {
+public class Mmo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public Asteroids() {
+	public Mmo() {
         
         initUI();
     }
@@ -27,7 +27,7 @@ public class Asteroids extends JFrame {
     public static void main(String[] args) {
         
         EventQueue.invokeLater(() -> {
-        	Asteroids ex = new Asteroids();
+        	Mmo ex = new Mmo();
             ex.setVisible(true);
         });
     }
