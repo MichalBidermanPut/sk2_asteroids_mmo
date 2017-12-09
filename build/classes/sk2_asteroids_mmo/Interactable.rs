@@ -1,0 +1,1 @@
+mmo_asteroids.Interactable

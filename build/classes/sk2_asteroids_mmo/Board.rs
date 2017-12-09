@@ -1,0 +1,2 @@
+mmo_asteroids.Board$TAdapter
+mmo_asteroids.Board
