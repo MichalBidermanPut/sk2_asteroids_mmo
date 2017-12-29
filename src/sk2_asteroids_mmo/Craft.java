@@ -90,4 +90,9 @@ public class Craft extends Interactable {
             dy = 0;
         }
     }
+
+    @Override
+    public String getType() {
+        return "Craft";
+    }
 }

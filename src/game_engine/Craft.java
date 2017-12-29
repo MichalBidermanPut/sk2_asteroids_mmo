@@ -10,11 +10,12 @@ package game_engine;
  * @author szmii
  */
 public class Craft implements Interactable{
+    private int id;
     private double x,y,dx,dy;
     private final double lx=1,ly=1;
     @Override
-    public boolean collision() {
-        return false;
+    public boolean collision(Interactable other_one) {
+        return this.getBounds().colides(other_one.getBounds());
     }
 
     @Override
@@ -60,6 +61,16 @@ public class Craft implements Interactable{
     @Override
     public void setY(double y) {
         this.y=y;
+    }
+
+    @Override
+    public int getID() {
+        return id;
+    }
+
+    @Override
+    public void setID(int id) {
+        this.id = id;
     }
     
 }

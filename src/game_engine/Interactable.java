@@ -10,7 +10,7 @@ package game_engine;
  * @author szmii
  */
 public interface Interactable {
-    public boolean collision();
+    public boolean collision(Interactable other_one);
     public Rectangle getBounds();
     public double getDX();
     public double getDY();
@@ -20,4 +20,6 @@ public interface Interactable {
     public void setDY(double dy);
     public void setX(double x);
     public void setY(double y);
+    public int getID();
+    public void setID(int id);
 }

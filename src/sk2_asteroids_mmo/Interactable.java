@@ -16,4 +16,7 @@ public abstract class Interactable {
     public abstract void keyPressed(KeyEvent e);
     
     public abstract void keyReleased(KeyEvent e);
+    
+    public abstract String getType();
+    
 }
