@@ -2,16 +2,17 @@ package sk2_asteroids_mmo;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 public abstract class Interactable {
 
     public abstract void move();
 
-    public abstract int getX();
+    public abstract double getX();
 
-    public abstract int getY();
+    public abstract double getY();
 
-    public abstract Image getImage();
+    public abstract BufferedImage getImage();
     
     public abstract void keyPressed(KeyEvent e);
     

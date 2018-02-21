@@ -16,10 +16,10 @@ public class Mmo extends JFrame {
         
         add(new Board());
         
-        setSize(400, 300);
+        setSize(806, 635);
         setResizable(false);
         
-        setTitle("Moving sprite");
+        setTitle("ASTEROIDS");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -27,7 +27,7 @@ public class Mmo extends JFrame {
     public static void main(String[] args) {
         
         EventQueue.invokeLater(() -> {
-        	Mmo ex = new Mmo();
+            LogIn ex = new LogIn();
             ex.setVisible(true);
         });
     }
