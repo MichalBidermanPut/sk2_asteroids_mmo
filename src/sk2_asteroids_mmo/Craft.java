@@ -98,11 +98,11 @@ public class Craft extends Interactable {
             dy = 1;
         }
 
-        if (key == KeyEvent.VK_Z) {
+        if (key == KeyEvent.VK_X) {
             drotation = 5;
         }
 
-        if (key == KeyEvent.VK_X) {
+        if (key == KeyEvent.VK_Z) {
             drotation = -5;
         }
 
@@ -137,11 +137,11 @@ public class Craft extends Interactable {
             dy = 0;
         }
 
-        if (key == KeyEvent.VK_Z) {
+        if (key == KeyEvent.VK_X) {
             drotation = 0;
         }
 
-        if (key == KeyEvent.VK_X) {
+        if (key == KeyEvent.VK_Z) {
             drotation = 0;
         }
     }
