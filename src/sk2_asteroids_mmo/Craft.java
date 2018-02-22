@@ -1,6 +1,5 @@
 package sk2_asteroids_mmo;
 
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class Craft extends Interactable {
 
@@ -41,8 +39,20 @@ public class Craft extends Interactable {
 
     @Override
     public void move() {
-        x += dx;
-        y += dy;
+        if ((x + dx) < 0) {
+            x = 0;
+        } else if ((x + dx) > 788) {
+            x = 788;
+        } else {
+            x += dx;
+        }
+        if ((y + dy) < 0) {
+            y = 0;
+        } else if ((y + dy) > 588) {
+            y = 588;
+        } else {
+            y += dy;
+        }
         rotation += drotation;
         try {
             for (Bullet bullet : bullets) {
@@ -87,11 +97,11 @@ public class Craft extends Interactable {
         if (key == KeyEvent.VK_DOWN) {
             dy = 1;
         }
-        
+
         if (key == KeyEvent.VK_Z) {
             drotation = 5;
         }
-        
+
         if (key == KeyEvent.VK_X) {
             drotation = -5;
         }
@@ -126,11 +136,11 @@ public class Craft extends Interactable {
         if (key == KeyEvent.VK_DOWN) {
             dy = 0;
         }
-        
+
         if (key == KeyEvent.VK_Z) {
             drotation = 0;
         }
-        
+
         if (key == KeyEvent.VK_X) {
             drotation = 0;
         }
@@ -144,7 +154,7 @@ public class Craft extends Interactable {
     public ArrayList<Bullet> getBullets() {
         return bullets;
     }
-    
+
     public double getRotation() {
         return Math.toRadians(rotation);
     }

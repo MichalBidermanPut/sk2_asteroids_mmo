@@ -1,6 +1,5 @@
 package sk2_asteroids_mmo;
 
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 

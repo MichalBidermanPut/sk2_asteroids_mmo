@@ -10,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -37,7 +38,7 @@ public class Board extends JPanel implements ActionListener {
         crafts = new Craft[100];
         crafts[0] = new Craft();
         crafts[1] = new Craft();
-        
+
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -61,12 +62,17 @@ public class Board extends JPanel implements ActionListener {
                 affineTransform.rotate(craft.getRotation(), 6, 6);
                 AffineTransformOp op = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_BILINEAR);
                 g2d.drawImage(op.filter(craft.getImage(), null), (int) craft.getX(), (int) craft.getY(), this);
-                for (Bullet bullet : craft.getBullets()) {
+                Iterator<Bullet> iterator = craft.getBullets().iterator();
+                while (iterator.hasNext()) {
+                    Bullet bullet = iterator.next();
                     g2d.drawImage(bullet.getImage(), (int) bullet.getX(), (int) bullet.getY(), this);
+                    if (bullet.getX() <= 0 || bullet.getX() >= 800 || bullet.getY() <= 0 || bullet.getY() >= 600) {
+                        iterator.remove();
+                    }
                 }
             }
         } catch (NullPointerException e) {
-        }     
+        }
     }
 
     @Override
