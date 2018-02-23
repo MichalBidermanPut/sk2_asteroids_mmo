@@ -1,5 +1,6 @@
 package sk2_asteroids_mmo;
 
+import MetaData.StaticFinals;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -41,15 +42,15 @@ public class Craft extends Interactable {
     public void move() {
         if ((x + dx) < 0) {
             x = 0;
-        } else if ((x + dx) > 788) {
-            x = 788;
+        } else if ((x + dx) > StaticFinals.width) {
+            x = StaticFinals.width;
         } else {
             x += dx;
         }
         if ((y + dy) < 0) {
             y = 0;
-        } else if ((y + dy) > 588) {
-            y = 588;
+        } else if ((y + dy) > StaticFinals.height) {
+            y = StaticFinals.height;
         } else {
             y += dy;
         }

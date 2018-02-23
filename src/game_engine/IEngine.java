@@ -25,6 +25,9 @@ public interface IEngine {
     updateElement: Porownoje ID elementu, i podstawia dane
     */
     List<InteractableS> getElements();
+    List<InteractableS> getAsteroids();
+    List<InteractableS> getCrafts();
+    List<InteractableS> getBullets();
     
     /*
     modyfikacja elementow twozy kolejke zmian 

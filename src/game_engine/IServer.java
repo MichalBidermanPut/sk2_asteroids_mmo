@@ -14,4 +14,5 @@ public interface IServer {
     void close();
     void broadcast();//wysyla dane
     void updateEngine();//pobiera dane i wruca do silnika
+    
 }
