@@ -18,12 +18,12 @@ public class Engine implements IEngine{
     }
 
     @Override
-    public void addElement(Interactable element) {
+    public void addElement(InteractableS element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void addElements(List<Interactable> element) {
+    public void addElements(List<InteractableS> element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -33,7 +33,7 @@ public class Engine implements IEngine{
     }
 
     @Override
-    public List<Interactable> getElements() {
+    public List<InteractableS> getElements() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -43,7 +43,7 @@ public class Engine implements IEngine{
     }
 
     @Override
-    public void updateElement(Interactable element) {
+    public void updateElement(InteractableS element) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

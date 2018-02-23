@@ -17,14 +17,14 @@ public interface IEngine {
     void execute():
     sprawdza czy wystepuje kolizja oraz wykonuje efekt kolizji
     */
-    void addElement(Interactable element);
-    void addElements(List<Interactable> element);
+    void addElement(InteractableS element);
+    void addElements(List<InteractableS> element);
     void deleteElement(int element_ID);
     void deleteElements(List<Integer> IDs);
-    void updateElement(Interactable element);/*
+    void updateElement(InteractableS element);/*
     updateElement: Porownoje ID elementu, i podstawia dane
     */
-    List<Interactable> getElements();
+    List<InteractableS> getElements();
     
     /*
     modyfikacja elementow twozy kolejke zmian 
