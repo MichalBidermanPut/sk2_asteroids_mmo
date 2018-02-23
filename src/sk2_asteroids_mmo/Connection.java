@@ -24,7 +24,7 @@ public class Connection extends Thread {
     private BufferedReader in;
     private DataOutputStream out;
 
-    private LinkedList<String> messagesQueue;
+    public LinkedList<String> messagesQueue;
 
     public Connection(Socket socket) {
         try {
@@ -62,6 +62,13 @@ public class Connection extends Thread {
             }
             out.close();
             in.close();
+            close();
+        } catch (IOException ex) {
+        }
+    }
+
+    public void close() {
+        try {
             socket.close();
         } catch (IOException ex) {
         }
