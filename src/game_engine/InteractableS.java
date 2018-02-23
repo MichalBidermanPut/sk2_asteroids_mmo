@@ -22,4 +22,8 @@ public interface InteractableS {
     public void setY(double y);
     public int getID();
     public void setID(int id);
+    public static enum type{
+        asteroid, craft, bullet
+    }
+    public type getType();
 }
