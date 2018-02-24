@@ -72,5 +72,10 @@ public class CraftS implements InteractableS{
     public void setID(int id) {
         this.id = id;
     }
+
+    @Override
+    public type getType() {
+        return InteractableS.type.craft;
+    }
     
 }
