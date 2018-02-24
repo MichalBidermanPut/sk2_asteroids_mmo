@@ -20,10 +20,10 @@ public:
     Rectangle shape;
     int getX(){return shape.getX();}
     int getY(){return shape.getY();}
-    int getOwnerId();
-    bool operator<(Element e){return this->getOwnerId()<e.getOwnerId();}///This is used for searching in set
-    bool operator>(Element e){return this->getOwnerId()>e.getOwnerId();}
-    bool operator==(Element e){return this->getOwnerId()==e.getOwnerId();}
+    int getOwnerId()const;
+    bool operator<(const Element e)const {return this->getOwnerId()<e.getOwnerId();}///This is used for searching in set
+    bool operator>(const Element e)const {return this->getOwnerId()>e.getOwnerId();}
+    bool operator==(const Element e)const {return this->getOwnerId()==e.getOwnerId();}
 };
 
 class Asteroid: public Element{};

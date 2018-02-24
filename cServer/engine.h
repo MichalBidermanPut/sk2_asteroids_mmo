@@ -3,17 +3,19 @@
 
 #include "element.h"
 #include <set>
-using std::list;
+using std::set;
 
 class Engine{
 private:
     set<Asteroid> asteroids;
     set<Craft> crafts;
     set<Bullet> bullets;
+    void turn();
+    void generate_asteroids();
+    void update();
 public:
     void run();
-    void turn();
-    void update();
+
     void addAsteroid(Asteroid a);
     void addCraft(Craft c);
     void addBullet(Bullet b);

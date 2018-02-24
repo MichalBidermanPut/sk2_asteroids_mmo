@@ -1,1 +1,1 @@
-g++ *.cpp -o server.out
+g++ -std=c++11 -Wall *.cpp -o server.out

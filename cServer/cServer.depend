@@ -1,5 +1,40 @@
 # depslib dependency file v1.0
 1519397608 source:c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\connection.h
 
-1519397552 source:c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\engine.h
+1519481697 source:c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\engine.h
+	"element.h"
+	<set>
+
+1519481152 source:c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\connection.cpp
+	"connection.h"
+	"StaticConsts.h"
+
+1519397608 c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\connection.h
+
+1519481237 c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\staticconsts.h
+
+1519482634 source:c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\element.cpp
+	"element.h"
+	"StaticConsts.h"
+	<iostream>
+
+1519482692 c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\element.h
+
+1519482692 source:c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\element.h
+
+1519481826 source:c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\engine.cpp
+	"engine.h"
+	"StaticConsts.h"
+	<set>
+	<iostream>
+
+1519481697 c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\engine.h
+	"element.h"
+	<set>
+
+1519481159 source:c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\main.cpp
+	<iostream>
+	"StaticConsts.h"
+
+1519481237 source:c:\users\szmii\documents\github\sk2_asteroids_mmo\cserver\staticconsts.h
 

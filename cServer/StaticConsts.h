@@ -3,6 +3,6 @@
 
 #define HEIGHT 588
 #define WIDTH 788
-
+#define NOT_IMPLEMENTED std::cout<<"Not Implemented\n"
 
 #endif // STATICCONSTS_H_INCLUDED

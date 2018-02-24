@@ -1,5 +1,8 @@
 #include "engine.h"
+#include "StaticConsts.h"
 #include <set>
+#include <iostream>
+using std::set;
 
 void Engine::run(){
     while(true)turn();
@@ -31,4 +34,10 @@ void Engine::turn(){
             }
         }
     }
+}
+void Engine::generate_asteroids(){
+    NOT_IMPLEMENTED;
+}
+void Engine::update(){
+    NOT_IMPLEMENTED;
 }
