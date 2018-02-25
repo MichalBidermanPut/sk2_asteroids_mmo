@@ -32,6 +32,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="StaticConsts.h" />
+		<Unit filename="connection.cpp" />
+		<Unit filename="connection.h" />
+		<Unit filename="element.cpp" />
+		<Unit filename="element.h" />
+		<Unit filename="engine.cpp" />
+		<Unit filename="engine.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

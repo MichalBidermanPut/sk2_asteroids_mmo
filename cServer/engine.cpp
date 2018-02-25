@@ -36,7 +36,11 @@ void Engine::turn(){
     }
 }
 void Engine::generate_asteroids(){
-    NOT_IMPLEMENTED;
+    Asteroid*a;
+    while(asteroids.size()<MAX_NUMBER_OF_ASTEROIDS){
+        a=new Asteroid();
+        asteroids.insert(*a);
+    }
 }
 void Engine::update(){
     NOT_IMPLEMENTED;

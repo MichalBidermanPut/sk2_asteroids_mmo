@@ -7,6 +7,8 @@ class Owner{
 
 class Rectangle{
 public:
+    Rectangle(int in_x,int in_y,int in_lenx,int in_leny);
+    Rectangle();
     int x,y,lenx, leny;
     int getX(){return x;}
     int getY(){return y;}
@@ -26,7 +28,10 @@ public:
     bool operator==(const Element e)const {return this->getOwnerId()==e.getOwnerId();}
 };
 
-class Asteroid: public Element{};
+class Asteroid: public Element{
+public:
+    Asteroid();
+};
 
 class Craft: public Element{
 public:
