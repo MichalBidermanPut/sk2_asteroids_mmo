@@ -24,21 +24,37 @@ public class Board extends JPanel implements ActionListener {
 
     private Image background;
 
-    public Board() {
+    private Client client;
 
-        initBoard();
+    public Board(String username) {
+
+        initBoard(username);
     }
 
-    private void initBoard() {
+    private void initBoard(String username) {
+
+        client = new Client("127.0.0.1", 3000, username);
+        if (client.login(username, "")) {
+            System.out.println("Zalogowano");
+        } else {
+            System.out.println("Błąd logowania");
+        }
+        
+        crafts = new Craft[100];
+        crafts[0] = new Craft(client);
 
         addKeyListener(new TAdapter());
         setFocusable(true);
         background = new ImageIcon("space_background.png").getImage();
 
-        crafts = new Craft[100];
-        crafts[0] = new Craft();
-        crafts[1] = new Craft();
-
+        
+        
+        // FUNKCJA ODCZYTUJĄCA LICZBĘ STATKÓW I ICH DANE
+        
+        
+        
+        //crafts[1] = new Craft();
+        
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -62,7 +78,7 @@ public class Board extends JPanel implements ActionListener {
                 affineTransform.rotate(craft.getRotation(), 6, 6);
                 AffineTransformOp op = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_BILINEAR);
                 g2d.drawImage(op.filter(craft.getImage(), null), (int) craft.getX(), (int) craft.getY(), this);
-                Iterator<Bullet> iterator = craft.getBullets().iterator();
+                Iterator<Bullet> iterator = craft.getActiveBullets().iterator();
                 while (iterator.hasNext()) {
                     Bullet bullet = iterator.next();
                     g2d.drawImage(bullet.getImage(), (int) bullet.getX(), (int) bullet.getY(), this);

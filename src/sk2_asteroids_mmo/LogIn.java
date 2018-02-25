@@ -173,7 +173,7 @@ public class LogIn extends javax.swing.JFrame implements Serializable {
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
         EventQueue.invokeLater(() -> {
-            Mmo ex = new Mmo();
+            Mmo ex = new Mmo(usernameTextField.getText());
             ex.setVisible(true);
         });
         dispose();
@@ -182,7 +182,7 @@ public class LogIn extends javax.swing.JFrame implements Serializable {
     private void usernameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameTextFieldKeyPressed
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
             EventQueue.invokeLater(() -> {
-                Mmo ex = new Mmo();
+                Mmo ex = new Mmo(usernameTextField.getText());
                 ex.setVisible(true);
             });
             dispose();

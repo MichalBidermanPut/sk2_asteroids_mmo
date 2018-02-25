@@ -13,6 +13,8 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,21 +37,30 @@ public class Connection extends Thread {
         this.socket = socket;
     }
 
-    public void sendInt(int x) {
+    public void sendInt(int message) {
         try {
             ByteBuffer buff = ByteBuffer.allocate(4);
-            byte[] b = buff.order(ByteOrder.LITTLE_ENDIAN).putInt(x).array();
+            byte[] b = buff.order(ByteOrder.LITTLE_ENDIAN).putInt(message).array();
             out.write(b);
         } catch (IOException ex) {
         }
     }
 
-    public void sendDouble(double x) {
+    public void sendDouble(double message) {
         try {
             ByteBuffer buff = ByteBuffer.allocate(8);
-            byte[] b = buff.order(ByteOrder.LITTLE_ENDIAN).putDouble(x).array();
+            byte[] b = buff.order(ByteOrder.LITTLE_ENDIAN).putDouble(message).array();
             out.write(b);
         } catch (IOException ex) {
+        }
+    }
+    
+    public void sendString(String message) {
+        byte[] b = message.getBytes();
+        try {
+            out.write(b);
+        } catch (IOException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

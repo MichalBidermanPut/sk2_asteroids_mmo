@@ -7,14 +7,14 @@ public class Mmo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public Mmo() {
+	public Mmo(String username) {
         
-        initUI();
+        initUI(username);
     }
     
-    private void initUI() {
+    private void initUI(String username) {
         
-        add(new Board());
+        add(new Board(username));
         
         setSize(806, 635);
         setResizable(false);

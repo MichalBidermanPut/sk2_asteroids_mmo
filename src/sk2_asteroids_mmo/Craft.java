@@ -15,13 +15,17 @@ public class Craft extends Interactable {
     private int dy;
     private int x;
     private int y;
-    private ArrayList<Bullet> bullets = new ArrayList<>();
+    private ArrayList<Bullet> activeBullets = new ArrayList<>();
+    private ArrayList<Bullet> newBullets = new ArrayList<>();
     private BufferedImage image;
     private double rotation;
     private double drotation;
+    
+    private Client client;
 
-    public Craft() {
+    public Craft(Client client) {
 
+        this.client = client;
         initCraft();
     }
 
@@ -54,8 +58,12 @@ public class Craft extends Interactable {
             y += dy;
         }
         rotation += drotation;
+        
+        //client.update(x, y, rotation);
+        
+        // DO ZMIANY !!!!
         try {
-            for (Bullet bullet : bullets) {
+            for (Bullet bullet : activeBullets) {
                 bullet.move();
             }
         } catch (Exception e) {
@@ -108,7 +116,7 @@ public class Craft extends Interactable {
 
         if (key == KeyEvent.VK_SPACE) {
             Bullet bullet = new Bullet(getX(), getY(), getRotation());
-            bullets.add(bullet);
+            newBullets.add(bullet);
         }
 
         if (key == KeyEvent.VK_ESCAPE) {
@@ -151,8 +159,8 @@ public class Craft extends Interactable {
         return "Craft";
     }
 
-    public ArrayList<Bullet> getBullets() {
-        return bullets;
+    public ArrayList<Bullet> getActiveBullets() {
+        return activeBullets;
     }
 
     public double getRotation() {

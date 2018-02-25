@@ -7,13 +7,14 @@ package sk2_asteroids_mmo;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author patry
  */
-public class Client implements IClient {
+public class Client {
 
     private final String username;
     private final String host;
@@ -28,22 +29,31 @@ public class Client implements IClient {
         this.username = username;
     }
 
-    @Override
-    public void update() {
+    public void update(double x, double y, double rotation, ArrayList<Bullet> newBullets) {
+        String message = String.valueOf((int) x * 10000) + " ";
+        message += String.valueOf((int) y * 10000) + " ";
+        message += String.valueOf((int) rotation) + " ";
+        message += String.valueOf(newBullets.size());
+        
+        for (int i = 0; i < newBullets.size(); i++) {
+            message += " " + String.valueOf((int) newBullets.get(i).getX());
+            message += " " + String.valueOf((int) newBullets.get(i).getY());
+            message += " " + String.valueOf((int) newBullets.get(i).getRotation());
+            message += String.valueOf(System.currentTimeMillis());
+        }
+        
+        connection.sendString(message);
     }
 
-    @Override
     public List<Interactable> getObjects() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void sendPosition(double x, double y) {
         connection.sendDouble(x);
         connection.sendDouble(y);
     }
 
-    @Override
     public boolean login(String username, String password) {
         try {
             socket = new Socket(host, port);
@@ -53,6 +63,8 @@ public class Client implements IClient {
 
         connection = new Connection(socket);
         connection.start();
+        
+        connection.sendString(username);
 
         return true;
     }

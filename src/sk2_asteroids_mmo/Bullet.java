@@ -68,5 +68,9 @@ public class Bullet extends Interactable {
     public String getType() {
         return "Bullet";
     }
+    
+    public double getRotation() {
+        return rotation;
+    }
 
 }
