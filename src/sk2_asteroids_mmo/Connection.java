@@ -5,11 +5,10 @@
  */
 package sk2_asteroids_mmo;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.LinkedList;
@@ -22,26 +21,27 @@ import java.util.logging.Logger;
  */
 public class Connection extends Thread {
 
-    private Socket socket;
-    private BufferedReader in;
-    private DataOutputStream out;
+    private InetAddress address;
+    private int port;
+    private DatagramSocket socket;
+    private byte[] buffer;
+    private DatagramPacket dpacket;
 
     public LinkedList<String> messagesQueue;
 
-    public Connection(Socket socket) {
-        try {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new DataOutputStream(socket.getOutputStream());
-        } catch (IOException ex) {
-        }
-        this.socket = socket;
+    public Connection(InetAddress address, int port) {
+        this.address = address;
+        this.port = port;
+        this.buffer = new byte[2048];
+        messagesQueue = new LinkedList<>();
     }
 
     public void sendInt(int message) {
         try {
             ByteBuffer buff = ByteBuffer.allocate(4);
             byte[] b = buff.order(ByteOrder.LITTLE_ENDIAN).putInt(message).array();
-            out.write(b);
+            DatagramPacket packet = new DatagramPacket(b, b.length, address, port);
+            socket.send(packet);
         } catch (IOException ex) {
         }
     }
@@ -50,15 +50,17 @@ public class Connection extends Thread {
         try {
             ByteBuffer buff = ByteBuffer.allocate(8);
             byte[] b = buff.order(ByteOrder.LITTLE_ENDIAN).putDouble(message).array();
-            out.write(b);
+            DatagramPacket packet = new DatagramPacket(b, b.length, address, port);
+            socket.send(packet);
         } catch (IOException ex) {
         }
     }
     
     public void sendString(String message) {
         byte[] b = message.getBytes();
+        DatagramPacket packet = new DatagramPacket(b, b.length, address, port);
         try {
-            out.write(b);
+            socket.send(packet);
         } catch (IOException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,22 +68,18 @@ public class Connection extends Thread {
 
     @Override
     public void run() {
-        String s;
         try {
-            while ((s = in.readLine()) != null) {
-                messagesQueue.add(s);
-            }
-            out.close();
-            in.close();
+            socket.receive(dpacket);
+            String msg = new String(buffer, 0, dpacket.getLength());
+            dpacket.setLength(buffer.length);
+            messagesQueue.add(msg);
             close();
         } catch (IOException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void close() {
-        try {
-            socket.close();
-        } catch (IOException ex) {
-        }
+        socket.close();
     }
 }

@@ -5,10 +5,12 @@
  */
 package sk2_asteroids_mmo;
 
-import java.io.IOException;
-import java.net.Socket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +21,6 @@ public class Client {
     private final String username;
     private final String host;
     private final int port;
-    private Socket socket;
 
     Connection connection = null;
 
@@ -34,14 +35,14 @@ public class Client {
         message += String.valueOf((int) y * 10000) + " ";
         message += String.valueOf((int) rotation) + " ";
         message += String.valueOf(newBullets.size());
-        
+
         for (int i = 0; i < newBullets.size(); i++) {
             message += " " + String.valueOf((int) newBullets.get(i).getX());
             message += " " + String.valueOf((int) newBullets.get(i).getY());
             message += " " + String.valueOf((int) newBullets.get(i).getRotation());
             message += String.valueOf(System.currentTimeMillis());
         }
-        
+
         connection.sendString(message);
     }
 
@@ -56,16 +57,13 @@ public class Client {
 
     public boolean login(String username, String password) {
         try {
-            socket = new Socket(host, port);
-        } catch (IOException ex) {
-            return false;
+            InetAddress address = InetAddress.getByName(host);
+            connection = new Connection(address, port);
+            connection.start();
+            connection.sendString(username);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        connection = new Connection(socket);
-        connection.start();
-        
-        connection.sendString(username);
-
         return true;
     }
 
