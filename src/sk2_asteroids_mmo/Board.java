@@ -53,6 +53,7 @@ public class Board extends JPanel implements ActionListener {
         
         
         
+        
         //crafts[1] = new Craft();
         
         timer = new Timer(DELAY, this);

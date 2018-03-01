@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.LinkedList;
@@ -34,6 +35,12 @@ public class Connection extends Thread {
         this.port = port;
         this.buffer = new byte[2048];
         messagesQueue = new LinkedList<>();
+        try {
+            this.socket = new DatagramSocket(port);
+        } catch (SocketException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dpacket = new DatagramPacket(this.buffer, this.buffer.length);
     }
 
     public void sendInt(int message) {
