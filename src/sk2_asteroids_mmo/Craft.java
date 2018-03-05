@@ -15,17 +15,15 @@ public class Craft extends Interactable {
     private int dy;
     private int x;
     private int y;
-    private ArrayList<Bullet> activeBullets = new ArrayList<>();
     private ArrayList<Bullet> newBullets = new ArrayList<>();
     private BufferedImage image;
     private double rotation;
     private double drotation;
     
-    private Client client;
+    private int id;
 
-    public Craft(Client client) {
+    public Craft() {
 
-        this.client = client;
         initCraft();
     }
 
@@ -59,15 +57,12 @@ public class Craft extends Interactable {
         }
         rotation += drotation;
         
-        //client.update(x, y, rotation);
-        
-        // DO ZMIANY !!!!
-        try {
+        /*try {
             for (Bullet bullet : activeBullets) {
                 bullet.move();
             }
         } catch (Exception e) {
-        }
+        }*/
     }
 
     @Override
@@ -159,11 +154,31 @@ public class Craft extends Interactable {
         return "Craft";
     }
 
-    public ArrayList<Bullet> getActiveBullets() {
-        return activeBullets;
+    public ArrayList<Bullet> getNewBullets() {
+        return newBullets;
+    }
+    
+    public void setNewBullets(ArrayList<Bullet> bullets) {
+        this.newBullets = bullets;
     }
 
     public double getRotation() {
         return Math.toRadians(rotation);
+    }
+    
+    public void setX(int x) {
+        this.x = x;
+    }
+    
+    public void setY(int y) {
+        this.y = y;
+    }
+    
+    public int getID() {
+        return this.id;
+    }
+    
+    public void setID(int id) {
+        this.id = id;
     }
 }

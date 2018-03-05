@@ -22,12 +22,15 @@ public class Bullet extends Interactable {
     private double x;
     private double y;
     private double rotation;
+    private long time;
     private BufferedImage image;
+    private int id;
 
     public Bullet(double x, double y, double rotation) {
         this.x = x;
         this.y = y;
         this.rotation = rotation;
+        time = System.currentTimeMillis();
         try {
             image = ImageIO.read(new File("craft.png"));
         } catch (IOException ex) {
@@ -37,8 +40,8 @@ public class Bullet extends Interactable {
 
     @Override
     public void move() {
-        y -= 10 * Math.cos(rotation);
-        x += 10 * Math.sin(rotation);
+        //y -= 10 * Math.cos(rotation);
+        //x += 10 * Math.sin(rotation);
     }
 
     @Override
@@ -72,5 +75,28 @@ public class Bullet extends Interactable {
     public double getRotation() {
         return rotation;
     }
-
+    
+    public long getTime() {
+        return time;
+    }
+    
+    public void setX(int x) {
+        this.x = x;
+    }
+    
+    public void setY(int y) {
+        this.y = y;
+    }
+    
+    public void setRotation(int rotation) {
+        this.rotation = rotation;
+    }
+    
+    public void setTime(long time) {
+        this.time = time;
+    }
+    
+    public void setID(int id) {
+        this.id = id;
+    }
 }

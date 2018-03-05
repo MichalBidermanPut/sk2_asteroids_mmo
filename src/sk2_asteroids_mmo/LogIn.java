@@ -5,11 +5,11 @@
  */
 package sk2_asteroids_mmo;
 
-import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -56,6 +56,8 @@ public class LogIn extends javax.swing.JFrame implements Serializable {
             exitButton.setForeground(baseColor);
             exitButton.setFocusable(false);
             exitButton.setFont(buttonFont);
+            backgroundButton.setIcon(new javax.swing.ImageIcon("space_background.png"));
+            backgroundButton.setBounds(0, 0, 800, 600);
         } catch (FontFormatException | IOException ex) {
             Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -98,6 +100,11 @@ public class LogIn extends javax.swing.JFrame implements Serializable {
 
         exitButton.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         exitButton.setText("EXIT");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
         backgroundPanel.add(exitButton);
         exitButton.setBounds(300, 510, 200, 40);
 
@@ -152,8 +159,6 @@ public class LogIn extends javax.swing.JFrame implements Serializable {
 
         backgroundPanel.add(logInPanel);
         logInPanel.setBounds(150, 150, 500, 300);
-
-        backgroundButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\patry\\Documents\\GitHub\\sk2_asteroids_mmo\\space_background.png")); // NOI18N
         backgroundPanel.add(backgroundButton);
         backgroundButton.setBounds(0, 0, 800, 600);
 
@@ -188,6 +193,10 @@ public class LogIn extends javax.swing.JFrame implements Serializable {
             dispose();
         }
     }//GEN-LAST:event_usernameTextFieldKeyPressed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        dispose();
+    }//GEN-LAST:event_exitButtonActionPerformed
 
     /**
      * @param args the command line arguments
