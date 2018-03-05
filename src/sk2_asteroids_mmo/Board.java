@@ -11,8 +11,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
-import java.util.Arrays;
-import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -49,7 +47,7 @@ public class Board extends JPanel implements ActionListener {
         if (client.login(username, username.length())) {
             System.out.println("Zalogowano");
             String clientID = null;
-            /*while (true) {
+            while (true) {
                 clientID = client.receiveMessage();
                 if (clientID != null) {
                     isLogin = true;
@@ -60,7 +58,7 @@ public class Board extends JPanel implements ActionListener {
             byte[] byteID = new byte[4];
             System.arraycopy(byteAnswer, 0, byteID, 0, 4);
             int id = Integer.parseInt(new String(byteID, 0, byteID.length));
-            client.getCraft().setID(id);*/
+            client.getCraft().setID(id);
         } else {
             System.out.println("Błąd logowania");
         }
@@ -77,11 +75,11 @@ public class Board extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
-        //if (isLogin) {
-        //doReceive();
-        doSend();
-        doDrawing(g);
-        //}
+        if (isLogin) {
+            doReceive();
+            doSend();
+            doDrawing(g);
+        }
 
         Toolkit.getDefaultToolkit().sync();
     }
