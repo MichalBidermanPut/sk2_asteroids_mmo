@@ -24,41 +24,55 @@ import java.util.logging.Logger;
 public class Connection extends Thread {
 
     private InetAddress address;
-    private int port;
-    private DatagramSocket socket;
-    private byte[] buffer;
-    private DatagramPacket dpacket;
+    private int portLogin;
+    private int portUpdate;
+    private DatagramSocket socketLogin;
+    private byte[] bufferLogin;
+    private DatagramPacket dpacketLogin;
 
-    public LinkedList<String> messagesQueue;
+    private DatagramSocket socketUpdate;
+    private byte[] bufferUpdate;
+    private DatagramPacket dpacketUpdate;
 
-    public Connection(InetAddress address, int port) {
+    public LinkedList<String> messagesQueueLogin;
+    public LinkedList<String> messagesQueueUpdate;
+
+    public Connection(InetAddress address, int portLogin, int portUpdate) {
         this.address = address;
-        this.port = port;
-        this.buffer = new byte[16384];
-        messagesQueue = new LinkedList<>();
+        this.portLogin = portLogin;
+        this.portUpdate = portUpdate;
+        this.bufferLogin = new byte[256];
+        this.bufferUpdate = new byte[16384];
+        messagesQueueLogin = new LinkedList<>();
+        messagesQueueUpdate = new LinkedList<>();
         try {
-            this.socket = new DatagramSocket(port);
+            this.socketLogin = new DatagramSocket(portLogin);
+            this.socketUpdate = new DatagramSocket(portUpdate);
         } catch (SocketException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dpacket = new DatagramPacket(this.buffer, this.buffer.length);
+        dpacketLogin = new DatagramPacket(this.bufferLogin, this.bufferLogin.length);
+        dpacketUpdate = new DatagramPacket(this.bufferUpdate, this.bufferUpdate.length);
     }
 
     public void sendLogin(String username, int lenUsername) {
+        ByteBuffer buffPortUpdate = ByteBuffer.allocate(4);
         ByteBuffer buffLenUsername = ByteBuffer.allocate(4);
+        byte[] bytePortUpdate = buffPortUpdate.order(ByteOrder.LITTLE_ENDIAN).putInt(portUpdate).array();
         byte[] byteLenUsername = buffLenUsername.order(ByteOrder.LITTLE_ENDIAN).putInt(lenUsername).array();
         byte[] byteUsername = username.getBytes();
-        byte[] bytePadding = new byte[256 - byteLenUsername.length - byteUsername.length];
+        byte[] bytePadding = new byte[256 - bytePortUpdate.length - byteLenUsername.length - byteUsername.length];
         for (int i = 0; i < bytePadding.length; i++) {
             bytePadding[i] = 0;
         }
         byte[] byteMessage = new byte[256];
-        System.arraycopy(byteLenUsername, 0, byteMessage, 0, byteLenUsername.length);
-        System.arraycopy(byteUsername, 0, byteMessage, byteLenUsername.length, byteUsername.length);
-        System.arraycopy(bytePadding, 0, byteMessage, (byteLenUsername.length + byteUsername.length), bytePadding.length);
-        DatagramPacket packet = new DatagramPacket(byteMessage, byteMessage.length, address, port);
+        System.arraycopy(bytePortUpdate, 0, byteMessage, 0, bytePortUpdate.length);
+        System.arraycopy(byteLenUsername, 0, byteMessage, bytePortUpdate.length, byteLenUsername.length);
+        System.arraycopy(byteUsername, 0, byteMessage, (bytePortUpdate.length + byteLenUsername.length), byteUsername.length);
+        System.arraycopy(bytePadding, 0, byteMessage, (bytePortUpdate.length + byteLenUsername.length + byteUsername.length), bytePadding.length);
+        DatagramPacket packet = new DatagramPacket(byteMessage, byteMessage.length, address, portLogin);
         try {
-            socket.send(packet);
+            socketLogin.send(packet);
         } catch (IOException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,9 +123,9 @@ public class Connection extends Thread {
             len += byteTimeBullet.length;
         }
         craft.setNewBullets(new ArrayList<Bullet>());
-        DatagramPacket packet = new DatagramPacket(byteMessage, byteMessage.length, address, port);
+        DatagramPacket packet = new DatagramPacket(byteMessage, byteMessage.length, address, portUpdate);
         try {
-            socket.send(packet);
+            socketUpdate.send(packet);
         } catch (IOException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -120,11 +134,15 @@ public class Connection extends Thread {
     @Override
     public void run() {
         try {
+            socketLogin.receive(dpacketLogin);
+            String msg = new String(bufferLogin, 0, dpacketLogin.getLength());
+            dpacketLogin.setLength(bufferLogin.length);
+            messagesQueueLogin.add(msg);
             while (true) {
-                socket.receive(dpacket);
-                String msg = new String(buffer, 0, dpacket.getLength());
-                dpacket.setLength(buffer.length);
-                messagesQueue.add(msg);
+                socketUpdate.receive(dpacketUpdate);
+                msg = new String(bufferUpdate, 0, dpacketUpdate.getLength());
+                dpacketUpdate.setLength(bufferUpdate.length);
+                messagesQueueUpdate.add(msg);
             }
         } catch (IOException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,6 +151,7 @@ public class Connection extends Thread {
     }
 
     public void close() {
-        socket.close();
+        socketLogin.close();
+        socketUpdate.close();
     }
 }

@@ -7,7 +7,6 @@ package sk2_asteroids_mmo;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,30 +17,23 @@ import java.util.logging.Logger;
 public class Client {
 
     private final String host;
-    private final int port;
+    private final int portLogin;
+    private final int portUpdate;
 
     Craft craft;
     Connection connection = null;
 
-    public Client(String host, int port) {
+    public Client(String host, int portLogin, int portUpdate) {
         this.host = host;
-        this.port = port;
+        this.portLogin = portLogin;
+        this.portUpdate = portUpdate;
         this.craft = new Craft();
-    }
-
-    public List<Interactable> getObjects() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void sendPosition(double x, double y) {
-        //connection.sendDouble(x);
-        //connection.sendDouble(y);
     }
 
     public boolean login(String username, int lenUsername) {
         try {
             InetAddress address = InetAddress.getByName(host);
-            connection = new Connection(address, port);
+            connection = new Connection(address, portLogin, portUpdate);
             connection.start();
             connection.sendLogin(username, lenUsername);
         } catch (UnknownHostException ex) {
@@ -49,17 +41,27 @@ public class Client {
         }
         return true;
     }
-    
+
     public void update() {
         connection.sendUpdate(craft);
     }
 
-    public String receiveMessage() {
-        if (connection.messagesQueue.isEmpty()) {
+    public String receiveLogin() {
+        if (connection.messagesQueueLogin.isEmpty()) {
             return null;
         } else {
-            String message = connection.messagesQueue.getFirst();
-            connection.messagesQueue.removeFirst();
+            String message = connection.messagesQueueLogin.getFirst();
+            connection.messagesQueueLogin.removeFirst();
+            return message;
+        }
+    }
+
+    public String receiveUpdate() {
+        if (connection.messagesQueueUpdate.isEmpty()) {
+            return null;
+        } else {
+            String message = connection.messagesQueueUpdate.getFirst();
+            connection.messagesQueueUpdate.removeFirst();
             return message;
         }
     }
@@ -69,7 +71,7 @@ public class Client {
             connection.close();
         }
     }
-    
+
     public Craft getCraft() {
         return craft;
     }
